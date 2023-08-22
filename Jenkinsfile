@@ -1,13 +1,23 @@
 pipeline {
     agent any
+    
     stages {
-        stage('deploy') {
+        stage('Checkout') {
             steps {
-              sh "aws configure set region $AWS_DEFAULT_REGION" 
-              sh "aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID"  
-              sh "aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY"
-              sh "aws s3 cp /home/kotha.kumar/Desktop/s3-static-website-jenkins-f/index.html s3://my-awswebsite-bucket"
+                // Checkout your repository here
+            }
+        }
+        
+        stage('Deploy to S3') {
+            steps {
+                script {
+                    def awsRegion = 'us-east-1'
+                    def bucketName = 'my-awswebsite-bucket'
+                    
+                    sh "aws s3 sync /home/kotha.kumar/Desktop/s3-static-website-jenkins-f/index.html s3://${bucketName}/ --region ${awsRegion}"
+                }
             }
         }
     }
 }
+
