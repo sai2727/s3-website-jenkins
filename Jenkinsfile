@@ -14,7 +14,7 @@ pipeline {
                     def awsRegion = 'us-east-1'
                     def bucketName = 'my-awswebsite-bucket'
                     
-                    sh "aws s3 sync /home/kotha.kumar/Desktop/s3-static-website-jenkins-f/index.html s3://${bucketName}/ --region ${awsRegion}"
+                    sh "aws s3 sync ./home/kotha.kumar/Desktop/s3-static-website-jenkins-f/index.html s3://${bucketName}/ --region ${awsRegion}"
                 }
             }
         }
