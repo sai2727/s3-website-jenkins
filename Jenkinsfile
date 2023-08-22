@@ -1,13 +1,19 @@
 pipeline {
     agent any
-    stages {
-        stage('deploy') {
-            steps {
-              sh "aws configure set region $AWS_DEFAULT_REGION" 
-              sh "aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID"  
-              sh "aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY"
-              sh "aws s3 cp /index.html s3://my-awswebsite-bucket-jenkins"
-            }
+
+    stages{
+        stage('deploy to S3'){
+            steps{
+                sh 'aws s3 cp public/index.html s3://my-awswebsite-bucket'
+                sh 'aws s3api put-object-acl --bucket my-awswebsite-bucket --key index.html --acl public-read'
+                sh 'aws s3 cp public/error.html s3://my-awswebsite-bucket'
+                 }
         }
     }
+    post{
+        always{
+            cleanWs disableDeferredWipeout: true, deleteDirs: true
+        }
+    }
+
 }
