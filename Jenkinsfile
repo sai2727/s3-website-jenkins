@@ -6,7 +6,7 @@ pipeline {
             steps{
                 sh 'aws s3 cp public/index.html s3://my-awswebsite-bucket'
                 sh 'aws s3api put-object-acl --bucket my-awswebsite-bucket --key index.html --acl public-read'
-                sh 'aws s3 cp public/error.html s3://my-awswebsite-bucket'
+                
                  }
         }
     }
