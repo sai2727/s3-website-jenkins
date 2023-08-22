@@ -1,19 +1,10 @@
 pipeline {
     agent any
-
-    stages{
-        stage('deploy to S3'){
-            steps{
-                sh 'aws s3 cp public/index.html s3://my-awswebsite-bucket'
-                sh 'aws s3api put-object-acl --bucket my-awswebsite-bucket --key index.html --acl public-read'
-                
-                 }
+    stages {
+        stage('deploy') {
+            steps {
+              sh "aws s3 cp /index.html s3://my-awswebsite-bucket-jenkins"
+            }
         }
     }
-    post{
-        always{
-            cleanWs disableDeferredWipeout: true, deleteDirs: true
-        }
-    }
-
 }
