@@ -9,7 +9,7 @@ pipeline {
         stage('Checkout Repository') {
             steps {
                 // Clone the Git repository
-                git branch: 'feature', url: ''
+                git branch: 'feature', url: 'https://github.com/sai2727/s3-website-jenkins.git'
             }
         }
         stage('Deploy to S3') {
