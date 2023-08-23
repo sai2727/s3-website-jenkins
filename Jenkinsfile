@@ -2,11 +2,6 @@ pipeline {
     agent any
     
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
         
         stage('Deploy to S3') {
             steps {
